@@ -20,7 +20,7 @@ if [ -n "${SSH_USER}" ]; then
     useradd -g 1000 -u 1000 -d /home/${SSH_USER} -m -k /etc/skel -s /bin/bash ${SSH_USER}
     
     if [ -z "${SSH_PASSWORD}" ]; then
-        SSH_PASSWORD=$(pwgen  -c -n -1 12)
+        SSH_PASSWORD=$(pwgen -c -n -1 12)
         echo "New user password : ${SSH_PASSWORD}"
     fi
     echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
@@ -41,6 +41,8 @@ if [ -n "${SSH_USER}" ]; then
     chown ${SSH_USER}:${SSH_USER} /home/${SSH_USER}/.bashrc
     chown ${SSH_USER}:${SSH_USER} /home/${SSH_USER}/.profile
     chown -R ${SSH_USER}:${SSH_USER} /home/${SSH_USER}/.ssh
+    
+    touch ${CREATED}
 fi
 
 exit 0
