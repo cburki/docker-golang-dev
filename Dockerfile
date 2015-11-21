@@ -23,11 +23,11 @@ RUN mkdir /root/.ssh
 # s6 install and configs
 COPY bin/* /usr/bin/
 COPY configs/etc/s6 /etc/s6/
-COPY configs/ssh_config /root/.ssh/config
+RUN chmod a+x /usr/bin/s6-*
 
 # install setup scripts
 COPY scripts/* /opt/
-RUN chmod a+x /opt/setupusers.sh /opt/setupgit.sh
+RUN chmod a+x /opt/setupusers.sh /opt/setupgit.sh /opt/setupenv.sh
 
 # add bash prompt and go path
 RUN echo 'PS1="\[\e[00;36m\][\$?]\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;32m\]\u@\h\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;34m\][\W]\[\e[0m\]\[\e[00;30m\] \\$ \[\e[0m\]"' >> /root/.bashrc

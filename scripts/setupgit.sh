@@ -42,7 +42,7 @@ if [ -n "${GIT_HOSTS}" ]; then
 
     SSH_CONFIG=/root/.ssh/config
     
-    if [ ! -s ${SSH_CONFIG} ]; then
+    if [ ! -f ${SSH_CONFIG} ]; then
     
         # GIT_HOSTS=user1@host1:port1,user2@host2:port2,...
         
