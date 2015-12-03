@@ -1,5 +1,12 @@
 #!/bin/bash
 
+USER_STATUS_FILE=/opt/setupuser.status
+
+if [ -f ${USER_STATUS_FILE} ]; then
+    exit 0
+fi
+
+
 if [ -n "${SSH_PASSWORD}" ]; then
     echo "root:${SSH_PASSWORD}" | chpasswd
 fi
@@ -44,5 +51,7 @@ if [ -n "${SSH_USER}" ]; then
     
     touch ${CREATED}
 fi
+
+echo "done" >> ${USER_STATUS_FILE}
 
 exit 0
