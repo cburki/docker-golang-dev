@@ -75,7 +75,7 @@ projects files reside could be mounted as a data volume.
 		-e GIT_HOSTS=user@host:port \
         -p <external port>:22 \
 		-d \
-        cburki/goland-dev:latest
+        cburki/golang-dev:latest
 
 When I'm not developping on my laptop, my development container is running on a
 server and I'm using a data volume container where my codes are synchronized with
@@ -94,7 +94,7 @@ stored.
 		-e GIT_HOSTS=user@host:port \
         -p <external port>:22 \
 		-d \
-        cburki/goland-dev:latest
+        cburki/golang-dev:latest
 
 Note that any other synchronization technology like dropbox, bittorrent sync, etc
 can be used to synchronize your project files. Just embed your synchronization

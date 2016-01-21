@@ -40,6 +40,7 @@ if [ -n "${SSH_USER}" ]; then
     if [ ! -f /home/${SSH_USER}/.bashrc ]; then
         cp /etc/skel/.bashrc /home/${SSH_USER}/.
         cp /etc/skel/.profile /home/${SSH_USER}/.
+        echo 'PAGER=less' >> /home/${SSH_USER}/.bashrc
         echo 'PS1="\[\e[00;36m\][\$?]\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;32m\]\u@\h\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;34m\][\W]\[\e[0m\]\[\e[00;30m\] \\$ \[\e[0m\]"' >> /home/${SSH_USER}/.bashrc
         echo "PATH=$PATH:/usr/local/go/bin" >> /home/${SSH_USER}/.bashrc
     fi

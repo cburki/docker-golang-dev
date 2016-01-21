@@ -4,6 +4,7 @@ MAINTAINER Christophe Burki, christophe@burkionline.net
 # Install system requirements
 RUN apt-get update && apt-get install -y \
     emacs24-nox \
+    less \
     locales \
     openssh-server \
     pwgen
@@ -24,12 +25,14 @@ RUN mkdir /root/.ssh
 COPY bin/* /usr/bin/
 COPY configs/etc/s6 /etc/s6/
 RUN chmod a+x /usr/bin/s6-*
+RUN chmod a+x /etc/s6/.s6-svscan/finish /etc/s6/sshd/run /etc/s6/sshd/finish
 
 # install setup scripts
 COPY scripts/* /opt/
 RUN chmod a+x /opt/setupusers.sh /opt/setupgit.sh /opt/setupenv.sh
 
-# add bash prompt and go path
+# add pager, bash prompt and go path
+RUN echo 'PAGER=less' >> /root/.bashrc
 RUN echo 'PS1="\[\e[00;36m\][\$?]\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;32m\]\u@\h\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;34m\][\W]\[\e[0m\]\[\e[00;30m\] \\$ \[\e[0m\]"' >> /root/.bashrc
 RUN echo "PATH=$PATH:/usr/local/go/bin" >> /root/.bashrc
 
