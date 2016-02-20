@@ -21,6 +21,9 @@ if [ ! -f /root/.gitconfig ]; then
             cp /root/.gitconfig /home/${SSH_USER}/.
         fi
     fi
+
+    echo "Settings ssl verify to false"
+    git config --global http.sslVerify "false"
 fi
 
 if [ ! -f /root/.ssh/id_rsa-git ]; then
