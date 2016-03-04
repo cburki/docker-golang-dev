@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     less \
     locales \
     openssh-server \
-    pwgen && \
+    pwgen \
+    tmux && \
     apt-get autoremove -y && \
     apt-get clean
 
@@ -33,10 +34,13 @@ RUN chmod a+x /usr/bin/s6-* && \
 COPY scripts/* /opt/
 RUN chmod a+x /opt/setupusers.sh /opt/setupgit.sh /opt/setupenv.sh
 
-# add pager, bash prompt and go path
+# setup shell environment
+COPY configs/tmux/tmux.conf /root/.tmux.conf
 RUN echo 'PAGER=less' >> /root/.bashrc && \
-    echo 'PS1="\[\e[00;36m\][\$?]\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;32m\]\u@\h\[\e[0m\]\[\e[00;30m\] \[\e[0m\]\[\e[00;34m\][\W]\[\e[0m\]\[\e[00;30m\] \\$ \[\e[0m\]"' >> /root/.bashrc && \
-    echo "PATH=$PATH:/usr/local/go/bin" >> /root/.bashrc
+    echo 'TERM=xterm' >> /root/.bashrc && \
+    echo 'PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[32m\]:\[\e[m\]\[\e[34m\]\W\[\e[m\] \[\e[34m\]\\$\[\e[m\] "' >> /root/.bashrc && \
+    echo "PATH=$PATH:/usr/local/go/bin" >> /root/.bashrc && \
+    echo '[ -z "$TMUX" ] && command -v tmux > /dev/null && tmux && exit 0' >> /root/.bashrc
 
 EXPOSE 22
 
