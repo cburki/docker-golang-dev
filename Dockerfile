@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     openssh-server \
     pwgen \
-    tmux && \
+    tmux \
+    xterm && \
     apt-get autoremove -y && \
     apt-get clean
 
