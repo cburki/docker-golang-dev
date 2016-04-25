@@ -23,8 +23,13 @@ if [ -n "${SSH_USER}" ]; then
         exit 0
     fi
 
-    groupadd -g 1000 ${SSH_USER}
-    useradd -g 1000 -u 1000 -d /home/${SSH_USER} -m -k /etc/skel -s /bin/bash ${SSH_USER}
+    USER_ID=1000
+    if [ -n "${SSH_USER_ID}" ]; then
+        USER_ID=${SSH_USER_ID}
+    fi
+    
+    groupadd -g ${USER_ID} ${SSH_USER}
+    useradd -g ${USER_ID} -u ${USER_ID} -d /home/${SSH_USER} -m -k /etc/skel -s /bin/bash ${SSH_USER}
     
     if [ -z "${SSH_PASSWORD}" ]; then
         SSH_PASSWORD=$(pwgen -c -n -1 12)
