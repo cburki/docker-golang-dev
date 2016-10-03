@@ -42,14 +42,11 @@ if [ -n "${SSH_USER}" ]; then
         echo "${SSH_AUTHORIZED_KEY}" > /home/${SSH_USER}/.ssh/authorized_keys
     fi
     
-    cp /etc/skel/.bashrc /home/${SSH_USER}/.
     cp /etc/skel/.profile /home/${SSH_USER}/.
+    cp /root/.bashrc /home/${SSH_USER}/.bashrc
     cp /root/.tmux.conf /home/${SSH_USER}/.tmux.conf
     echo "PAGER=less" >> /home/${SSH_USER}/.bashrc
     echo "TERM=xterm" >> /home/${SSH_USER}/.bashrc
-    echo 'PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[32m\]:\[\e[m\]\[\e[34m\]\W\[\e[m\] \[\e[34m\]\\$\[\e[m\] "' >> /home/${SSH_USER}/.bashrc
-    echo "PATH=$PATH:/usr/local/go/bin" >> /home/${SSH_USER}/.bashrc
-    echo '#[ -z "$TMUX" ] && command -v tmux > /dev/null && tmux && exit 0' >> /home/${SSH_USER}/.bashrc
     
     chown ${SSH_USER}:${SSH_USER} /home/${SSH_USER}
     chown ${SSH_USER}:${SSH_USER} /home/${SSH_USER}/.bashrc
